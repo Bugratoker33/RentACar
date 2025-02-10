@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Brands.Commands.Create;
+namespace Application.Features.Brands.Commands.Update;
 
-public class CretedBrandResponse
+//hangi dataları görmek istiyorsam onları göreceğiz 
+public class UpdatedBrandResponse
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
     public DateTime CreatedDate { get; set; }
+    public DateTime UpdateDate { get; set; }
 
 
 }

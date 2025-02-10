@@ -14,6 +14,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Persistance\Persistance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Core.Aplication">
+      <HintPath>..\..\..\corePackages\Core.Packages\Core.Aplication\bin\Debug\net7.0\Core.Aplication.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

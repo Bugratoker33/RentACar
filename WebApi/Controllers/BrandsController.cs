@@ -1,4 +1,10 @@
 ﻿using Application.Features.Brands.Commands.Create;
+using Application.Features.Brands.Commands.Deleted;
+using Application.Features.Brands.Commands.Update;
+using Application.Features.Brands.Queries.GetById;
+using Application.Features.Brands.Queries.GetList;
+using Core.Aplication.Requests;
+using Core.Aplication.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,5 +22,49 @@ namespace WebApi.Controllers
         
             return Ok(response);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
+        {//kulanıcıdan hangi sayfayı istiyorsun kaçarlı istiyorsun onu istiyoruz 
+             GetListBrandQuery getListBrandQuery = new() { PageRequest =  pageRequest };
+            GetListResponse<GetListBrandListItemDto> response = await Mediator.Send(getListBrandQuery);
+            return Ok(response);
+
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {//kulanıcıdan hangi sayfayı istiyorsun kaçarlı istiyorsun onu istiyoruz 
+            GetByIdBrandQuery getByIdBrandQuery = new() { Id = id };
+          //dönüş tipi ne olucak
+          GetByIdBrandResponse response = await Mediator.Send(getByIdBrandQuery);
+            return Ok(response);
+
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateBrandCommand updateBrandCommand)
+        {
+            UpdatedBrandResponse response = await Mediator.Send(updateBrandCommand);
+
+            return Ok(response);
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            //DeletedBrandResponse response = await Mediator.Send(deleteBrandCommand);
+          //from roote da deletebradn komand dönseydim burası doğru idi 
+            //return Ok(response); 
+            DeletedBrandResponse response = await Mediator.Send(new DeleteBrandCommand { Id = id });
+
+            return Ok(response);
+        }
+
+        // [ HttpDelete] bu da çalışır 
+        //public async Task<IActionResult> Deleteds([FromBody] DeleteBrandCommand deleteBrandCommand)
+        //{
+        //    DeletedBrandResponse response = await Mediator.Send(deleteBrandCommand);
+
+        //    return Ok(response);
+        //}
     }
 }
