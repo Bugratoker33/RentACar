@@ -32,7 +32,7 @@ public class GetByIdBrandQuery : IRequest<GetByIdBrandResponse>
             //get by ıd brand responsu bir branda çevirip bunda veri tabanına göndermemiz lazım 
 
 
-            Brand? brand = await _brandRepository.GetAsync(predicate: b => b.Id == request.Id, cancellationToken: cancellationToken);
+            Brand? brand = await _brandRepository.GetAsync(predicate: b => b.Id == request.Id,withDeleted:true , cancellationToken: cancellationToken);
             //veri tabanından brandı çekti biz bunu responso çekmemiz lazım
 
             GetByIdBrandResponse response =_mapper.Map<GetByIdBrandResponse>(brand);
