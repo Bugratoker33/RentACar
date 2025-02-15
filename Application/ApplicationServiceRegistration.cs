@@ -1,4 +1,6 @@
-﻿using Core.Aplication.Rules;
+﻿using Core.Aplication.Pipelies.Validation;
+using Core.Aplication.Rules;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,11 +19,14 @@ public static class ApplicationServiceRegistration
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
         //AddSubClassesOfType iocy yönetimidir baseBusines Rule türündeki her şeeyi iocy ekle 
+        
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());//validasyonları varsa devreye girsin 
 
         services.AddMediatR(configuration =>
         {
 
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
 
         });
         return services;

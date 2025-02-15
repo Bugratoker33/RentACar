@@ -1,4 +1,5 @@
 using Application;
+using Core.CrossCuttingConcerns.Exceptions.Extensions;
 using Persistance;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+//if(app.Environment.IsProduction())//eðer ben geliþtiriciysem bana uzun uzun hatayý var eðer ben bunu yayýna almýþ isem midel weardeki hatayý döndür 
+app.ConfigureCustomExceptionMiddleware();//hata yönetimin midel weari 
+
 
 app.UseHttpsRedirection();
 
